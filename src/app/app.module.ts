@@ -1,11 +1,12 @@
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { MaterialModule, MdNativeDateModule } from '@angular/material';
+import { MaterialModule, MdNativeDateModule, MdDatepickerModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes, RouteReuseStrategy } from '@angular/router';
 import { CustomReuseStrategy } from './custom-reuse-strategy';
 import { HttpModule } from '@angular/http';
 import { ObservableMedia, FlexLayoutModule} from "@angular/flex-layout";
+import { DatePipe } from '@angular/common';
 
 import { HttpService } from './services/http.service';
 import { DataService } from './services/data.service';
@@ -15,6 +16,7 @@ import { HomeComponent } from './components/home/home.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { ErrorComponent } from './components/error/error.component';
+import { DatePickerComponent } from './components/date-picker/date-picker.component';
 
 const appRoutes: Routes = [
    { path: '', redirectTo: 'organization', pathMatch: 'full' },
@@ -29,17 +31,20 @@ const appRoutes: Routes = [
     HomeComponent,
     DashboardComponent,
     SignInComponent,
-    ErrorComponent
+    ErrorComponent,
+    DatePickerComponent
   ],
   imports: [
     BrowserModule,
     MaterialModule,
+    MdDatepickerModule,
+    MdNativeDateModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(appRoutes),
     HttpModule,
     FlexLayoutModule
   ],
-  providers: [HttpService, DataService, Title, {provide: RouteReuseStrategy, useClass: CustomReuseStrategy}],
+  providers: [HttpService, DataService, Title, {provide: RouteReuseStrategy, useClass: CustomReuseStrategy}, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -5,12 +5,12 @@ md-card {
 }
 
 md-card-content {
-  max-height: 280px; 
-  min-height: 280px; 
+  max-height: 200px; 
+  min-height: 200px; 
   overflow: hidden;
 }
 
-md-card-footer {
+md-card-actions {
   padding: 0 10px 10px 10px;
 }
 

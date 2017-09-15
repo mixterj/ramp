@@ -1,3 +1,13 @@
-<p>
-  dashboard works!
-</p>
+<h1>
+{{organization.name}} 
+</h1>
+<h2>
+{{organization.irName}}
+</h2>
+<div>
+	<app-date-picker (updatedDate)="updateDate($event)"></app-date-picker>
+</div>
+<button md-button (click)="getDailyVisualization()">Visualization</button>
+<div>
+	Parent: {{myDate}}
+</div>
