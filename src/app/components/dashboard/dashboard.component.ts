@@ -63,12 +63,12 @@ export class DashboardComponent implements OnInit {
             height: 500
         };
     
-    // individual date API calls
+    // individual date API calls:
     // http://104.154.72.209:3075?service=run&app=get_daily_results&process=visualize&id=montana&searchDate=2017-09-07&wskey=msu
     // http://104.154.72.209:3075?service=run&app=get_daily_results&process=comparison&id=montana&searchDate=2017-09-07&wskey=msu
     // http://104.154.72.209:3075/?service=run&app=get_daily_results&process=download_daily_stats&id=montana&searchDate=2017-09-07&wskey=msu
     
-    // cumulative API calls
+    // cumulative API calls:
     // http://104.154.72.209:3075?service=run&app=get_benchmarks&process=get_cumulative&id=montana&searchDate=2017-09-15&wskey=msu
     
     //http://104.154.72.209:3075?service=run&app=get_benchmarks&process=get_geo&id=montana&searchDate=2017-09-15&wskey=msu
