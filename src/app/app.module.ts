@@ -7,6 +7,8 @@ import { CustomReuseStrategy } from './custom-reuse-strategy';
 import { HttpModule } from '@angular/http';
 import { ObservableMedia, FlexLayoutModule} from "@angular/flex-layout";
 import { DatePipe } from '@angular/common';
+import { Ng2GoogleChartsModule } from 'ng2-google-charts';
+
 
 import { HttpService } from './services/http.service';
 import { DataService } from './services/data.service';
@@ -17,6 +19,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { ErrorComponent } from './components/error/error.component';
 import { DatePickerComponent } from './components/date-picker/date-picker.component';
+import { GeoChartComponent } from './components/geo-chart/geo-chart.component';
+import { HistogramComponent } from './components/histogram/histogram.component';
 
 const appRoutes: Routes = [
    { path: '', redirectTo: 'organization', pathMatch: 'full' },
@@ -32,11 +36,14 @@ const appRoutes: Routes = [
     DashboardComponent,
     SignInComponent,
     ErrorComponent,
-    DatePickerComponent
+    DatePickerComponent,
+    GeoChartComponent,
+    HistogramComponent
   ],
   imports: [
     BrowserModule,
     MaterialModule,
+    Ng2GoogleChartsModule,
     MdDatepickerModule,
     MdNativeDateModule,
     BrowserAnimationsModule,
@@ -44,7 +51,7 @@ const appRoutes: Routes = [
     HttpModule,
     FlexLayoutModule
   ],
-  providers: [HttpService, DataService, Title, {provide: RouteReuseStrategy, useClass: CustomReuseStrategy}, DatePipe],
+  providers: [HttpService, DataService, Title, {provide: RouteReuseStrategy, useClass: CustomReuseStrategy}, DatePipe, GeoChartComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

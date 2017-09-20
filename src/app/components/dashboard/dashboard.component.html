@@ -4,10 +4,18 @@
 <h2>
 {{organization.irName}}
 </h2>
-<div>
-	<app-date-picker (updatedDate)="updateDate($event)"></app-date-picker>
-</div>
-<button md-button (click)="getDailyVisualization()">Visualization</button>
-<div>
-	Parent: {{myDate}}
+<div class="pad-above"
+     fxLayout = "column"
+     fxLayout.xs="column">
+	<div>
+		<app-date-picker (updatedDate)="updateDate($event)"></app-date-picker>
+		<button md-button (click)="getDailyVisualization()">Click by Device</button>
+	</div>
+	<h2>Cumulative Statics</h2>
+	<div *ngIf="running">
+		<md-spinner></md-spinner>
+	</div>
+	<div>
+		<app-geo-chart></app-geo-chart>
+	</div>
 </div>
