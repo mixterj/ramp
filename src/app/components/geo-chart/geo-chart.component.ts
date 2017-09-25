@@ -36,7 +36,7 @@ export class GeoChartComponent implements OnInit {
           
       }).then(() =>{
           //this.parent.dataReady = true;   
-          this.parent.running = false;   
+          this.parent.runningGeo = false;   
           this.ready = true
       });      
   }

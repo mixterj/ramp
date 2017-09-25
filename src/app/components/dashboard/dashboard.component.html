@@ -12,10 +12,16 @@
 		<button md-button (click)="getDailyVisualization()">Click by Device</button>
 	</div>
 	<h2>Cumulative Statics</h2>
-	<div *ngIf="running">
+	<!-- >div *ngIf="runningGeo">
 		<md-spinner></md-spinner>
 	</div>
 	<div>
 		<app-geo-chart></app-geo-chart>
+	</div-->
+	<div *ngIf="runningHist">
+		<md-spinner></md-spinner>
+	</div>
+	<div>
+		<app-histogram></app-histogram>
 	</div>
 </div>

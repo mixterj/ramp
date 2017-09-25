@@ -22,7 +22,8 @@ export class DashboardComponent implements OnInit {
     @Output() orgId = null;
     @Output() data = {};
     dataReady = false;
-    running = true;
+    runningGeo = true;
+    runningHist = true;
     finished = false;
     cols: number = 0;
     rowHeight: string = '';
