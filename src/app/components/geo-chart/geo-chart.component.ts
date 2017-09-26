@@ -24,7 +24,9 @@ export class GeoChartComponent implements OnInit {
       this.http.getJson(url).then(data => {
           console.log(data);
           this.chartData['chartType'] = 'GeoChart';
-          this.chartData['options'] = "{'title': 'Clicks by Device'}"
+          this.chartData['options'] = {};
+          this.chartData['options']['colorAxis'] = {'colors': ['#EBF5FB','#AED6F1', '#2E86C1', '#1B4F72']};
+          //"{'title': 'Clicks by Device', 'colorAxis': {'colors': ['#AED6F1', '#2E86C1', '#1B4F72']}}";
           if (Object.keys(data).length > 0){
               this.chartData['dataTable'] = data;
               console.log(this.chartData);

@@ -18,16 +18,17 @@ export class HistogramComponent implements OnInit {
     ready = false
     
     ngOnInit() {
-        console.log('at geo comp')
+        console.log('at hist comp')
         this.parent.dataReady = false;
         let url = this.apiBase + '&app=get_benchmarks&process=get_cumulative&id=' + this.parent.orgId + '&searchDate=*&wskey=msu';
         console.log(url);
         this.http.getJson(url).then(data => {
-            console.log(data);
+            console.log(data.chart);
             this.chartData['chartType'] = 'ColumnChart';
-            this.chartData['options'] = "{'title': 'Clicks by Day'}"
+            this.chartData['options'] = {};
+            this.chartData['options']['title'] = "Clicks By Date";
             if (Object.keys(data).length > 0){
-                this.chartData['dataTable'] = data;
+                this.chartData['dataTable'] = data.chart;
                 console.log(this.chartData);
             }
             else{
