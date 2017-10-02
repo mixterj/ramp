@@ -8,21 +8,21 @@ import { AppComponent } from '../../app.component';
 import { HomeComponent } from '../home/home.component';
 import { DatePickerComponent } from '../date-picker/date-picker.component';
 import { ObservableMedia } from "@angular/flex-layout";
+import { GeoChartComponent } from '../geo-chart/geo-chart.component';
+import { HistogramComponent } from '../histogram/histogram.component';
 
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.css'],
+  providers: [ GeoChartComponent, HistogramComponent ]
 })
 export class DashboardComponent implements OnInit {
 
     myDate: Date = new Date();
     apiBase = 'http://104.154.72.209:3075?service=run&';
-    @Output() orgId = null;
     dailyData = {};
-    runningGeo = true;
-    runningHist = true;
     dailyReady = false;
     dailyFailed = false;
     runningDaily = false;
@@ -36,15 +36,18 @@ export class DashboardComponent implements OnInit {
             private http: HttpService,
             private datepipe: DatePipe,
             private media: ObservableMedia,
+            private app: AppComponent
     ) { }
     
     organization = null;
 
     ngOnInit() {
         this.updateGrid();
-        this.orgId = this.route.snapshot.paramMap.get('id');
-        console.log(this.orgId)
-        this.organization = this.dataService.getOrganizationData(this.orgId)
+        this.app.orgId = this.route.snapshot.paramMap.get('id');
+        this.app.runningGeo = true;
+        this.app.runningHist = true;
+        console.log(this.app.orgId)
+        this.organization = this.dataService.getOrganizationData(this.app.orgId)
         console.log(this.organization)
     }
     
@@ -62,7 +65,7 @@ export class DashboardComponent implements OnInit {
         this.dailyReady = false;
         this.dailyFailed = false;
         this.dailyData = {};
-        let url = this.apiBase + '&app=get_daily_results&process=visualize&id=' + this.orgId + '&searchDate=' +  this.datepipe.transform(this.myDate, 'yyyy-MM-dd') + '&wskey=msu';
+        let url = this.apiBase + '&app=get_daily_results&process=visualize&id=' + this.app.orgId + '&searchDate=' +  this.datepipe.transform(this.myDate, 'yyyy-MM-dd') + '&wskey=msu';
         this.http.getJson(url).then(data => {
             console.log(data);
             this.dailyData['chartType'] = 'PieChart';
@@ -91,7 +94,7 @@ export class DashboardComponent implements OnInit {
         this.dailyReady = false;
         this.dailyFailed = false;
         this.dailyData = {};
-        let url = this.apiBase + '&app=get_daily_results&process=comparison&id=' + this.orgId + '&searchDate=' +  this.datepipe.transform(this.myDate, 'yyyy-MM-dd') + '&wskey=msu';
+        let url = this.apiBase + '&app=get_daily_results&process=comparison&id=' + this.app.orgId + '&searchDate=' +  this.datepipe.transform(this.myDate, 'yyyy-MM-dd') + '&wskey=msu';
         this.http.getJson(url).then(data => {
             console.log(data);
             this.dailyData['chartType'] = 'ColumnChart';

@@ -5,11 +5,14 @@ import { DataService } from '../../services/data.service';
 import { Title } from '@angular/platform-browser';
 import { AppComponent } from '../../app.component';
 import { ObservableMedia } from "@angular/flex-layout";
+import { GeoChartComponent } from '../geo-chart/geo-chart.component';
+import { HistogramComponent } from '../histogram/histogram.component';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
+  providers: [ GeoChartComponent, HistogramComponent ]
 })
 export class HomeComponent implements OnInit {
 
@@ -19,8 +22,8 @@ export class HomeComponent implements OnInit {
           private httpService: HttpService,
           private dataService: DataService,
           private titleService: Title,
-          private parent: AppComponent, 
           private media: ObservableMedia,
+          private app: AppComponent
   ) { }
   
   organizations = null;
@@ -33,6 +36,7 @@ export class HomeComponent implements OnInit {
       this.updateGrid();
       this.organizations =  this.dataService.getOrganizationsList()
       console.log(this.organizations)
+      this.app.orgId = '*'
      
   }
   showDashboard(orgId) {

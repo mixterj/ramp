@@ -8,4 +8,7 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'RAMP';
+  orgId = null;
+  runningGeo = true;
+  runningHist = true;
 }

@@ -28,7 +28,7 @@
 		     fxLayout = "row"
 		     fxLayout.md="column">
 			<div class="geo" fxFlex="50">
-				<div *ngIf="runningGeo">
+				<div *ngIf="app.runningGeo">
 					<md-spinner></md-spinner>
 				</div>
 				<div>
@@ -36,7 +36,7 @@
 				</div>
 			</div>
 			<div class="hist" fxFlex="50">	
-				<div *ngIf="runningHist">
+				<div *ngIf="app.runningHist">
 					<md-spinner></md-spinner>
 				</div>
 				<div>

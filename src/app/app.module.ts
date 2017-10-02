@@ -113,7 +113,7 @@ const appRoutes: Routes = [
     HttpModule,
     FlexLayoutModule
   ],
-  providers: [HttpService, DataService, Title, {provide: RouteReuseStrategy, useClass: CustomReuseStrategy}, DatePipe, GeoChartComponent],
+  providers: [HttpService, DataService, Title, {provide: RouteReuseStrategy, useClass: CustomReuseStrategy}, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
