@@ -4,24 +4,45 @@
 <h2>
 {{organization.irName}}
 </h2>
-<div class="pad-above"
-     fxLayout = "column"
-     fxLayout.xs="column">
+<div>
+     <div class='dailycomponent'>
+	    <h2>Daily Statistics</h2> 
+		<div>
+			<app-date-picker (updatedDate)="updateDate($event)"></app-date-picker>
+			<button md-button (click)="getDailyVisualization()">Click by Device</button>
+			<button md-button (click)="getDailyComp()">Comparison Chart</button>
+		</div>
+		<div *ngIf="!dataReady && runningDaily">
+			<md-spinner></md-spinner>
+		</div>
+		<div class='pad-below' *ngIf="dailyReady && !dailyFailed">
+			<google-chart [data]="dailyData"></google-chart>
+		</div>
+		<div *ngIf="dailyData.error">
+			<p>{{dailyData.error}}</p>
+		</div>
+	</div>
 	<div>
-		<app-date-picker (updatedDate)="updateDate($event)"></app-date-picker>
-		<button md-button (click)="getDailyVisualization()">Click by Device</button>
-	</div>
-	<h2>Cumulative Statics</h2>
-	<div *ngIf="runningGeo">
-		<md-spinner></md-spinner>
-	</div>
-	<div>
-		<app-geo-chart></app-geo-chart>
-	</div>
-	<div *ngIf="runningHist">
-		<md-spinner></md-spinner>
-	</div>
-	<div>
-		<app-histogram></app-histogram>
-	</div>
+		<h2>Cumulative Statistics</h2>
+		<div class="pad-above"
+		     fxLayout = "row"
+		     fxLayout.md="column">
+			<div class="geo" fxFlex="50">
+				<div *ngIf="runningGeo">
+					<md-spinner></md-spinner>
+				</div>
+				<div>
+					<app-geo-chart></app-geo-chart>
+				</div>
+			</div>
+			<div class="hist" fxFlex="50">	
+				<div *ngIf="runningHist">
+					<md-spinner></md-spinner>
+				</div>
+				<div>
+					<app-histogram></app-histogram>
+				</div>
+		    </div>
+		</div>
+	</div>	
 </div>

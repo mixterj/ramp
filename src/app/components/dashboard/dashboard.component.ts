@@ -20,11 +20,12 @@ export class DashboardComponent implements OnInit {
     myDate: Date = new Date();
     apiBase = 'http://104.154.72.209:3075?service=run&';
     @Output() orgId = null;
-    @Output() data = {};
-    dataReady = false;
+    dailyData = {};
     runningGeo = true;
     runningHist = true;
-    finished = false;
+    dailyReady = false;
+    dailyFailed = false;
+    runningDaily = false;
     cols: number = 0;
     rowHeight: string = '';
     gutterSize: string = '';
@@ -57,57 +58,62 @@ export class DashboardComponent implements OnInit {
       }
     
     getDailyVisualization() {
-        let url = this.apiBase + '&app=get_benchmarks&process=get_geo&id=' + this.orgId + '&searchDate=' +  this.datepipe.transform(this.myDate, 'yyyy-MM-dd') + '&wskey=msu';
+        this.runningDaily = true;
+        this.dailyReady = false;
+        this.dailyFailed = false;
+        this.dailyData = {};
+        let url = this.apiBase + '&app=get_daily_results&process=visualize&id=' + this.orgId + '&searchDate=' +  this.datepipe.transform(this.myDate, 'yyyy-MM-dd') + '&wskey=msu';
         this.http.getJson(url).then(data => {
             console.log(data);
-            this.data['chartType'] = 'GeoChart';
-            this.data['options'] = "{'title': 'Clicks by Device'}"
+            this.dailyData['chartType'] = 'PieChart';
+            this.dailyData['options'] = {};
+            this.dailyData['options']['title'] = 'Clicks by Device';
+            this.dailyData['options']['height'] = 350;
             if (Object.keys(data).length > 0){
-                this.data['dataTable'] = data;
-                console.log(this.data);
+                this.dailyData['dataTable'] = data;
+                console.log(this.dailyData);
             }
             else{
-                this.data['error'] = 'Error No Data for this Date';
-                console.log(this.data);
+                this.dailyData['error'] = 'Error No Data for this Date';
+                this.dailyFailed = true;
+                console.log(this.dailyData);
             }
             
         }).then(() =>{
-            this.dataReady = true;    
+            this.dailyReady = true;
+            console.log(this.dailyReady)
+            this.runningDaily = false;
         });      
     }
-    
-    getCumulativeVisualization() {
-        let url = this.apiBase + '&app=get_benchmarks&process=get_geo&id=' + this.orgId + '&searchDate=' +  this.datepipe.transform(this.myDate, 'yyyy-MM-dd') + '&wskey=msu';
+
+    getDailyComp() {
+        this.runningDaily = true;
+        this.dailyReady = false;
+        this.dailyFailed = false;
+        this.dailyData = {};
+        let url = this.apiBase + '&app=get_daily_results&process=comparison&id=' + this.orgId + '&searchDate=' +  this.datepipe.transform(this.myDate, 'yyyy-MM-dd') + '&wskey=msu';
         this.http.getJson(url).then(data => {
             console.log(data);
-            this.data['chartType'] = 'GeoChart';
-            this.data['options'] = "{'title': 'Clicks by Device'}"
+            this.dailyData['chartType'] = 'ColumnChart';
+            this.dailyData['options'] = {};
+            this.dailyData['options']['title'] = 'Downloads per IR';
+            this.dailyData['options']['height'] = 350;
             if (Object.keys(data).length > 0){
-                this.data['dataTable'] = data;
-                console.log(this.data);
+                this.dailyData['dataTable'] = data;
+                console.log(this.dailyData);
             }
             else{
-                this.data['error'] = 'Error No Data for this Date';
-                console.log(this.data);
+                this.dailyData['error'] = 'Error No Data for this Date';
+                this.dailyFailed = true;
+                console.log(this.dailyData);
             }
             
         }).then(() =>{
-            this.dataReady = true;    
+            this.dailyReady = true;
+            console.log(this.dailyReady)
+            this.runningDaily = false;
         });      
     }
-    
-    pieChartData =  {
-            chartType: 'PieChart',
-            dataTable: [
-              ['Task', 'Hours per Day'],
-              ['Work',     11],
-              ['Eat',      2],
-              ['Commute',  2],
-              ['Watch TV', 2],
-              ['Sleep',    7]
-            ],
-            options: {'title': 'Clicks by Device'},
-          };
     
     updateGrid(): void {
         if (this.media.isActive('xl')) { this.cols = 4; this.gutterSize = '20px'; this.rowHeight = '400px';   }
@@ -117,16 +123,5 @@ export class DashboardComponent implements OnInit {
         else if (this.media.isActive('xs')) { this.cols = 1; this.gutterSize = '10px'; this.rowHeight = '400px'; }
     }
     
-
-    
-    // individual date API calls:
-    // http://104.154.72.209:3075?service=run&app=get_daily_results&process=visualize&id=montana&searchDate=2017-09-07&wskey=msu
-    // http://104.154.72.209:3075?service=run&app=get_daily_results&process=comparison&id=montana&searchDate=2017-09-07&wskey=msu
-    // http://104.154.72.209:3075/?service=run&app=get_daily_results&process=download_daily_stats&id=montana&searchDate=2017-09-07&wskey=msu
-    
-    // cumulative API calls:
-    // http://104.154.72.209:3075?service=run&app=get_benchmarks&process=get_cumulative&id=montana&searchDate=2017-09-15&wskey=msu
-    
-    //http://104.154.72.209:3075?service=run&app=get_benchmarks&process=get_geo&id=montana&searchDate=2017-09-15&wskey=msu
 
 }

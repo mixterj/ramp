@@ -19,7 +19,7 @@ export class GeoChartComponent implements OnInit {
   
   ngOnInit() {
       console.log('at geo comp')
-      this.parent.dataReady = false;
+      //this.parent.dataReady = false;
       let url = this.apiBase + '&app=get_benchmarks&process=get_geo&id=' + this.parent.orgId + '&searchDate=*&wskey=msu';
       this.http.getJson(url).then(data => {
           console.log(data);
