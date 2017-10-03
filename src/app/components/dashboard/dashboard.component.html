@@ -1,48 +1,51 @@
-<h1>
-{{organization.name}} 
-</h1>
-<h2>
-{{organization.irName}}
-</h2>
-<div>
-     <div class='dailycomponent'>
-	    <h2>Daily Statistics</h2> 
-		<div>
-			<app-date-picker (updatedDate)="updateDate($event)"></app-date-picker>
-			<button md-button (click)="getDailyVisualization()">Click by Device</button>
-			<button md-button (click)="getDailyComp()">Comparison Chart</button>
-		</div>
-		<div *ngIf="!dataReady && runningDaily">
-			<md-spinner></md-spinner>
-		</div>
-		<div class='pad-below' *ngIf="dailyReady && !dailyFailed">
-			<google-chart [data]="dailyData"></google-chart>
-		</div>
-		<div *ngIf="dailyData.error">
-			<p>{{dailyData.error}}</p>
-		</div>
-	</div>
+<div *ngIf="app.authorized">
+	<h1>
+	{{organization.name}} 
+	</h1>
+	<h2>
+	{{organization.irName}}
+	</h2>
 	<div>
-		<h2>Cumulative Statistics</h2>
-		<div class="pad-above"
-		     fxLayout = "row"
-		     fxLayout.md="column">
-			<div class="geo" fxFlex="50">
-				<div *ngIf="app.runningGeo">
-					<md-spinner></md-spinner>
-				</div>
-				<div>
-					<app-geo-chart></app-geo-chart>
-				</div>
+	     <div class='dailycomponent'>
+		    <h2>Daily Statistics</h2> 
+			<div>
+				<app-date-picker (updatedDate)="updateDate($event)"></app-date-picker>
+				<button md-button (click)="getDailyVisualization()"><md-icon>pie_chart</md-icon>  Click by Device</button> 
+				<button md-button (click)="getDailyComp()"> <md-icon>show_chart</md-icon>  Comparison Chart</button>
+				<button md-button (click)="downloadData()"> <md-icon>file_download</md-icon>  Download Data</button>
 			</div>
-			<div class="hist" fxFlex="50">	
-				<div *ngIf="app.runningHist">
-					<md-spinner></md-spinner>
-				</div>
-				<div>
-					<app-histogram></app-histogram>
-				</div>
-		    </div>
+			<div *ngIf="!dataReady && runningDaily">
+				<md-spinner></md-spinner>
+			</div>
+			<div class='pad-below' *ngIf="dailyReady && !dailyFailed">
+				<google-chart [data]="dailyData"></google-chart>
+			</div>
+			<div *ngIf="dailyData.error">
+				<p>{{dailyData.error}}</p>
+			</div>
 		</div>
-	</div>	
+		<div>
+			<h2>Cumulative Statistics</h2>
+			<div class="pad-above"
+			     fxLayout = "row"
+			     fxLayout.md="column">
+				<div class="geo" fxFlex="50">
+					<div *ngIf="app.runningGeo">
+						<md-spinner></md-spinner>
+					</div>
+					<div>
+						<app-geo-chart></app-geo-chart>
+					</div>
+				</div>
+				<div class="hist" fxFlex="50">	
+					<div *ngIf="app.runningHist">
+						<md-spinner></md-spinner>
+					</div>
+					<div>
+						<app-histogram></app-histogram>
+					</div>
+			    </div>
+			</div>
+		</div>	
+	</div>
 </div>

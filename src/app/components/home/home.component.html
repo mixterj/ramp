@@ -1,39 +1,42 @@
-<h1 class="pad-below">
-Organizations
-</h1>
-<div class="pad-above"
-     fxLayout = "row"
-     fxLayout.xs="column">
-	<div class="organizations" fxFlex="70">
-	  <md-grid-list cols="{{cols}}" rowHeight={{rowHeight}} gutterSize={{gutterSize}}>
-		  <md-grid-tile *ngFor="let org of organizations">
-		    <md-card>
-		    <md-card-header>
-		    		  <img md-card-avatar src="{{org['image']}}"/>
-			      <md-card-title>{{org['name']}}</md-card-title>
-			      <md-card-subtitle>{{org['irName']}}</md-card-subtitle> 
-		      </md-card-header>
-		      <md-card-content>
-				    <p>
-				      {{org['snippet']}}
-				    </p>
-			  </md-card-content>   
-		      <md-card-actions>
-		          <button md-button (click)="showDashboard(org['id'])">VIEW</button>
-		      </md-card-actions>
-		    </md-card>
-		  </md-grid-tile>
-	  </md-grid-list>
-	</div>
-	<div class="about" fxFlex="30">
-		<h3>RAMP</h3>
-		<p>Montana State University, the Association of Research Libraries, the University of New Mexico, and OCLC Research have joined as partners to examine the difficulties that libraries face in producing accurate reports on the use of their digital repositories.</p>
-		<img src="assets/img/imls-measuring-up.jpeg">
-		<div *ngIf="app.runningGeo">
-			<md-spinner></md-spinner>
+<div *ngIf="app.authorized" class='padding'>
+	<h1 class="pad-below">
+	Organizations
+	</h1>
+	<div class="pad-above"
+	     fxLayout = "row"
+	     fxLayout.xs="column">
+		<div class="organizations" fxFlex="70">
+		  <md-grid-list cols="{{cols}}" rowHeight={{rowHeight}} gutterSize={{gutterSize}}>
+			  <md-grid-tile *ngFor="let org of organizations">
+			    <md-card>
+			    <md-card-header>
+			    		  <img md-card-avatar src="{{org['image']}}"/>
+				      <md-card-title>{{org['name']}}</md-card-title>
+				      <md-card-subtitle>{{org['irName']}}</md-card-subtitle> 
+			      </md-card-header>
+			      <md-card-content>
+					    <p>
+					      {{org['snippet']}}
+					    </p>
+				  </md-card-content>   
+			      <md-card-actions>
+			          <button md-button (click)="showDashboard(org['id'])">VIEW</button>
+			      </md-card-actions>
+			    </md-card>
+			  </md-grid-tile>
+		  </md-grid-list>
 		</div>
-		<div>
-			<app-geo-chart></app-geo-chart>
+		<div class="about" fxFlex="30">
+			<h3>RAMP</h3>
+			<p>Montana State University, the Association of Research Libraries, the University of New Mexico, and OCLC Research have joined as partners to examine the difficulties that libraries face in producing accurate reports on the use of their digital repositories.</p>
+			<img src="assets/img/imls-measuring-up.jpeg">
+			<div *ngIf="app.runningGeo">
+				<md-spinner></md-spinner>
+			</div>
+			<div>
+				<app-geo-chart></app-geo-chart>
+			</div>
 		</div>
 	</div>
 </div>
+

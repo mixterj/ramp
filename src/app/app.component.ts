@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, Output } from '@angular/core';
+import { Component, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -14,4 +14,7 @@ export class AppComponent {
   authorized = false;
   credentials = null;
   signInError = false;
+  apiBase = 'http://104.154.72.209:3075?service=run&';
+
 }
+

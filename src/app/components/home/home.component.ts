@@ -34,9 +34,12 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
       this.updateGrid();
+      this.app.runningGeo = true;
       this.organizations =  this.dataService.getOrganizationsList()
       console.log(this.organizations)
+      console.log(this.app.signInError)
       this.app.orgId = '*'
+
      
   }
   showDashboard(orgId) {
@@ -46,7 +49,7 @@ export class HomeComponent implements OnInit {
   
   ngAfterViewInit() {
       this.updateGrid();
-      this.media.subscribe(change => { this.updateGrid(); });     
+      this.media.subscribe(change => { this.updateGrid(); });  
     }
   
   updateGrid(): void {

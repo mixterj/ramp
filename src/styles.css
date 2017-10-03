@@ -1,7 +1,7 @@
 body {
   margin: 0;
   font-family: Roboto, sans-serif;
-  padding: 5px;
+  padding: 0px;
   background-color: #FFF;
 }
 .card-scroll{
@@ -17,4 +17,7 @@ body {
 }
 .pad-above {
 	margin-top: 10px;
+}
+.padding{
+	padding: 10px 20px;
 }

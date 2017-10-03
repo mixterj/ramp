@@ -13,13 +13,12 @@ export class HistogramComponent implements OnInit {
             private http: HttpService,
             private app: AppComponent
     ) { }
-    apiBase = 'http://104.154.72.209:3075?service=run&';
     chartData = {};
     ready = false
     
     ngOnInit() {
         console.log('at hist comp')
-        let url = this.apiBase + '&app=get_benchmarks&process=get_cumulative&id=' + this.app.orgId + '&searchDate=*&wskey='+this.app.credentials;
+        let url = this.app.apiBase + '&app=get_benchmarks&process=get_cumulative&id=' + this.app.orgId + '&searchDate=*&wskey='+this.app.credentials;
         console.log(url);
         this.http.getJson(url).then(data => {
             console.log(data.chart);

@@ -25,6 +25,7 @@ export class SignInComponent implements OnInit {
               console.log('it was tru');
               this.app.authorized = true;
               this.app.credentials = this.wskey
+              this.app.signInError = false;
           }
           else{
               this.app.signInError = true;

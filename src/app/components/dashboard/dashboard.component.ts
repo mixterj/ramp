@@ -21,7 +21,6 @@ import { HistogramComponent } from '../histogram/histogram.component';
 export class DashboardComponent implements OnInit {
 
     myDate: Date = new Date();
-    apiBase = 'http://104.154.72.209:3075?service=run&';
     dailyData = {};
     dailyReady = false;
     dailyFailed = false;
@@ -46,7 +45,6 @@ export class DashboardComponent implements OnInit {
         this.updateGrid();
         this.app.orgId = this.route.snapshot.paramMap.get('id');
         this.app.runningGeo = true;
-        this.app.runningHist = true;
         console.log(this.app.orgId)
         this.organization = this.dataService.getOrganizationData(this.app.orgId)
         console.log(this.organization)
@@ -66,7 +64,7 @@ export class DashboardComponent implements OnInit {
         this.dailyReady = false;
         this.dailyFailed = false;
         this.dailyData = {};
-        let url = this.apiBase + '&app=get_daily_results&process=visualize&id=' + this.app.orgId + '&searchDate=' +  this.datepipe.transform(this.myDate, 'yyyy-MM-dd') + '&wskey=msu';
+        let url = this.app.apiBase + '&app=get_daily_results&process=visualize&id=' + this.app.orgId + '&searchDate=' +  this.datepipe.transform(this.myDate, 'yyyy-MM-dd') + '&wskey=' + this.app.credentials;
         this.http.getJson(url).then(data => {
             console.log(data);
             this.dailyData['chartType'] = 'PieChart';
@@ -95,7 +93,7 @@ export class DashboardComponent implements OnInit {
         this.dailyReady = false;
         this.dailyFailed = false;
         this.dailyData = {};
-        let url = this.apiBase + '&app=get_daily_results&process=comparison&id=' + this.app.orgId + '&searchDate=' +  this.datepipe.transform(this.myDate, 'yyyy-MM-dd') + '&wskey=msu';
+        let url = this.app.apiBase + '&app=get_daily_results&process=comparison&id=' + this.app.orgId + '&searchDate=' +  this.datepipe.transform(this.myDate, 'yyyy-MM-dd') + '&wskey=' + this.app.credentials;
         this.http.getJson(url).then(data => {
             console.log(data);
             this.dailyData['chartType'] = 'ColumnChart';
@@ -117,6 +115,11 @@ export class DashboardComponent implements OnInit {
             console.log(this.dailyReady)
             this.runningDaily = false;
         });      
+    }
+    
+    downloadData() {
+      let url = this.app.apiBase + '&app=get_daily_results&process=download_daily_stats&id=' + this.app.orgId + '&searchDate=' + this.datepipe.transform(this.myDate, 'yyyy-MM-dd') +'&wskey=' +this.app.credentials
+          window.open(url, "_blank");
     }
     
     updateGrid(): void {
