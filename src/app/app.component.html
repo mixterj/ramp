@@ -1,8 +1,16 @@
 <body>
-	<md-toolbar color="primary" class="appHeader">
-	  {{title}}
+	<md-toolbar color="primary" class="appHeader" >
+	  <span routerLink="/organization">RAMP</span>
 	</md-toolbar>
+	<div *ngIf="authorized">
 	<div class="app-container">
 	 	<router-outlet></router-outlet>
 	</div>
+	</div>
+	<div *ngIf="!authorized">
+		<app-sign-in></app-sign-in>
+	</div>
+	<div *ngIf="signInError">
+		<div>Login Error, please try again.</div>
+	</div> 
 </body>

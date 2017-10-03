@@ -42,6 +42,7 @@ export class DashboardComponent implements OnInit {
     organization = null;
 
     ngOnInit() {
+        console.log(this.app.authorized);
         this.updateGrid();
         this.app.orgId = this.route.snapshot.paramMap.get('id');
         this.app.runningGeo = true;

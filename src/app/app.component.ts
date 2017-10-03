@@ -11,4 +11,7 @@ export class AppComponent {
   orgId = null;
   runningGeo = true;
   runningHist = true;
+  authorized = false;
+  credentials = null;
+  signInError = false;
 }

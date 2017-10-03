@@ -40,10 +40,12 @@ import { HttpModule } from '@angular/http';
 import { ObservableMedia, FlexLayoutModule} from "@angular/flex-layout";
 import { DatePipe } from '@angular/common';
 import { Ng2GoogleChartsModule } from 'ng2-google-charts';
+import { FormsModule } from '@angular/forms';
 
 
 import { HttpService } from './services/http.service';
 import { DataService } from './services/data.service';
+import { SignInService } from './services/sign-in.service';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -73,6 +75,7 @@ const appRoutes: Routes = [
     HistogramComponent
   ],
   imports: [
+    FormsModule,
     BrowserModule,
     MdAutocompleteModule,
     MdButtonModule,
@@ -113,7 +116,7 @@ const appRoutes: Routes = [
     HttpModule,
     FlexLayoutModule
   ],
-  providers: [HttpService, DataService, Title, {provide: RouteReuseStrategy, useClass: CustomReuseStrategy}, DatePipe],
+  providers: [SignInService, HttpService, DataService, Title, {provide: RouteReuseStrategy, useClass: CustomReuseStrategy}, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -19,7 +19,7 @@ export class HistogramComponent implements OnInit {
     
     ngOnInit() {
         console.log('at hist comp')
-        let url = this.apiBase + '&app=get_benchmarks&process=get_cumulative&id=' + this.app.orgId + '&searchDate=*&wskey=msu';
+        let url = this.apiBase + '&app=get_benchmarks&process=get_cumulative&id=' + this.app.orgId + '&searchDate=*&wskey='+this.app.credentials;
         console.log(url);
         this.http.getJson(url).then(data => {
             console.log(data.chart);
