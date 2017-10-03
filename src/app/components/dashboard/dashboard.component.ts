@@ -1,12 +1,9 @@
-import { Component, OnInit, AfterViewInit, Input, Output} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { Router, ActivatedRoute, Params} from '@angular/router';
+import { ActivatedRoute } from "@angular/router";
 import { HttpService } from '../../services/http.service';
 import { DataService } from '../../services/data.service';
-import { Title } from '@angular/platform-browser';
-import { AppComponent } from '../../app.component';
-import { HomeComponent } from '../home/home.component';
-import { DatePickerComponent } from '../date-picker/date-picker.component';
+import { AppComponent } from "../../app.component";
 import { ObservableMedia } from "@angular/flex-layout";
 import { GeoChartComponent } from '../geo-chart/geo-chart.component';
 import { HistogramComponent } from '../histogram/histogram.component';

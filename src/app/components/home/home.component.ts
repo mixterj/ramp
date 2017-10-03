@@ -1,8 +1,6 @@
-import { Component, OnInit, AfterViewInit} from '@angular/core';
-import { Router, ActivatedRoute, Params} from '@angular/router';
-import { HttpService } from '../../services/http.service';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { DataService } from '../../services/data.service';
-import { Title } from '@angular/platform-browser';
 import { AppComponent } from '../../app.component';
 import { ObservableMedia } from "@angular/flex-layout";
 import { GeoChartComponent } from '../geo-chart/geo-chart.component';
@@ -17,11 +15,8 @@ import { HistogramComponent } from '../histogram/histogram.component';
 export class HomeComponent implements OnInit {
 
   constructor(
-          private route: ActivatedRoute,
           private router: Router,
-          private httpService: HttpService,
           private dataService: DataService,
-          private titleService: Title,
           private media: ObservableMedia,
           private app: AppComponent
   ) { }

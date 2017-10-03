@@ -37,7 +37,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes, RouteReuseStrategy } from '@angular/router';
 import { CustomReuseStrategy } from './custom-reuse-strategy';
 import { HttpModule } from '@angular/http';
-import { ObservableMedia, FlexLayoutModule} from "@angular/flex-layout";
+import { FlexLayoutModule } from "@angular/flex-layout";
 import { DatePipe } from '@angular/common';
 import { Ng2GoogleChartsModule } from 'ng2-google-charts';
 import { FormsModule } from '@angular/forms';
