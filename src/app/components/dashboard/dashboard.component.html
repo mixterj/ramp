@@ -1,10 +1,7 @@
-<div *ngIf="app.authorized">
+<div *ngIf="app.authorized" class='padding'>
 	<h1>
-	{{organization.name}} 
+	{{organization.name}}: {{organization.irName}}
 	</h1>
-	<h2>
-	{{organization.irName}}
-	</h2>
 	<div>
 	     <div class='dailycomponent'>
 		    <h2>Daily Statistics</h2> 
