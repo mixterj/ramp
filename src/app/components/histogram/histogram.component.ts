@@ -1,4 +1,4 @@
-import { Component, Output, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../../services/http.service';
 import { AppComponent } from '../../app.component';
 
