@@ -11,6 +11,7 @@ import { ObservableMedia } from "@angular/flex-layout";
 import { GeoChartComponent } from '../geo-chart/geo-chart.component';
 import { HistogramComponent } from '../histogram/histogram.component';
 
+import { SignInService } from '../../services/sign-in.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -35,13 +36,13 @@ export class DashboardComponent implements OnInit {
             private http: HttpService,
             private datepipe: DatePipe,
             private media: ObservableMedia,
-            private app: AppComponent
+            private app: AppComponent,
+            private signIn: SignInService
     ) { }
     
     organization = null;
 
     ngOnInit() {
-        console.log(this.app.authorized);
         this.updateGrid();
         this.app.orgId = this.route.snapshot.paramMap.get('id');
         this.app.runningGeo = true;
@@ -49,7 +50,7 @@ export class DashboardComponent implements OnInit {
         this.organization = this.dataService.getOrganizationData(this.app.orgId)
         console.log(this.organization)
     }
-    
+
     updateDate(updatedDate) {
         this.myDate = updatedDate
     }
@@ -64,7 +65,7 @@ export class DashboardComponent implements OnInit {
         this.dailyReady = false;
         this.dailyFailed = false;
         this.dailyData = {};
-        let url = this.app.apiBase + '&app=get_daily_results&process=visualize&id=' + this.app.orgId + '&searchDate=' +  this.datepipe.transform(this.myDate, 'yyyy-MM-dd') + '&wskey=' + this.app.credentials;
+        let url = this.app.apiBase + '&app=get_daily_results&process=visualize&id=' + this.app.orgId + '&searchDate=' +  this.datepipe.transform(this.myDate, 'yyyy-MM-dd') + '&wskey=' + this.signIn.credentials;
         this.http.getJson(url).then(data => {
             console.log(data);
             this.dailyData['chartType'] = 'PieChart';
@@ -93,7 +94,7 @@ export class DashboardComponent implements OnInit {
         this.dailyReady = false;
         this.dailyFailed = false;
         this.dailyData = {};
-        let url = this.app.apiBase + '&app=get_daily_results&process=comparison&id=' + this.app.orgId + '&searchDate=' +  this.datepipe.transform(this.myDate, 'yyyy-MM-dd') + '&wskey=' + this.app.credentials;
+        let url = this.app.apiBase + '&app=get_daily_results&process=comparison&id=' + this.app.orgId + '&searchDate=' +  this.datepipe.transform(this.myDate, 'yyyy-MM-dd') + '&wskey=' + this.signIn.credentials;
         this.http.getJson(url).then(data => {
             console.log(data);
             this.dailyData['chartType'] = 'ColumnChart';
@@ -118,7 +119,7 @@ export class DashboardComponent implements OnInit {
     }
     
     downloadData() {
-      let url = this.app.apiBase + '&app=get_daily_results&process=download_daily_stats&id=' + this.app.orgId + '&searchDate=' + this.datepipe.transform(this.myDate, 'yyyy-MM-dd') +'&wskey=' +this.app.credentials
+      let url = this.app.apiBase + '&app=get_daily_results&process=download_daily_stats&id=' + this.app.orgId + '&searchDate=' + this.datepipe.transform(this.myDate, 'yyyy-MM-dd') +'&wskey=' +this.signIn.credentials
           window.open(url, "_blank");
     }
     

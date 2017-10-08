@@ -7,6 +7,7 @@ import { AppComponent } from '../../app.component';
 import { ObservableMedia } from "@angular/flex-layout";
 import { GeoChartComponent } from '../geo-chart/geo-chart.component';
 import { HistogramComponent } from '../histogram/histogram.component';
+import { SignInService } from '../../services/sign-in.service';
 
 @Component({
   selector: 'app-home',
@@ -23,7 +24,8 @@ export class HomeComponent implements OnInit {
           private dataService: DataService,
           private titleService: Title,
           private media: ObservableMedia,
-          private app: AppComponent
+          private app: AppComponent,
+          private signIn: SignInService
   ) { }
   
   organizations = null;
@@ -37,7 +39,7 @@ export class HomeComponent implements OnInit {
       this.app.runningGeo = true;
       this.organizations =  this.dataService.getOrganizationsList()
       console.log(this.organizations)
-      console.log(this.app.signInError)
+      console.log(this.signIn.signInError)
       this.app.orgId = '*'
 
      

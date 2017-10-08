@@ -45,6 +45,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpService } from './services/http.service';
 import { DataService } from './services/data.service';
 import { SignInService } from './services/sign-in.service';
+import { AuthGuardService } from './services/auth-guard.service';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -57,8 +58,9 @@ import { HistogramComponent } from './components/histogram/histogram.component';
 
 const appRoutes: Routes = [
    { path: '', redirectTo: 'organization', pathMatch: 'full' },
-   { path: 'organization', component: HomeComponent },
-   { path: 'dashboard/:id', component: DashboardComponent },
+   { path: 'sign_in', component: SignInComponent },
+   { path: 'organization', canActivate: [AuthGuardService], component: HomeComponent },
+   { path: 'dashboard/:id', canActivate: [AuthGuardService], component: DashboardComponent },
    { path: '**', component: ErrorComponent }
  ];
 

@@ -1,6 +1,7 @@
 import { Component, Output, OnInit } from '@angular/core';
 import { HttpService } from '../../services/http.service';
 import { AppComponent } from '../../app.component';
+import { SignInService } from '../../services/sign-in.service';
 
 @Component({
   selector: 'app-histogram',
@@ -11,14 +12,15 @@ export class HistogramComponent implements OnInit {
 
     constructor(
             private http: HttpService,
-            private app: AppComponent
+            private app: AppComponent,
+            private signIn: SignInService,
     ) { }
     chartData = {};
     ready = false
     
     ngOnInit() {
         console.log('at hist comp')
-        let url = this.app.apiBase + '&app=get_benchmarks&process=get_cumulative&id=' + this.app.orgId + '&searchDate=*&wskey='+this.app.credentials;
+        let url = this.app.apiBase + '&app=get_benchmarks&process=get_cumulative&id=' + this.app.orgId + '&searchDate=*&wskey='+this.signIn.credentials;
         console.log(url);
         this.http.getJson(url).then(data => {
             console.log(data.chart);

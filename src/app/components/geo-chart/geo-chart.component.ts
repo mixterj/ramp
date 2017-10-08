@@ -1,6 +1,7 @@
 import { Component, Output, OnInit } from '@angular/core';
 import { HttpService } from '../../services/http.service';
 import { AppComponent } from '../../app.component';
+import { SignInService } from '../../services/sign-in.service';
 @Component({
   selector: 'app-geo-chart',
   templateUrl: './geo-chart.component.html',
@@ -10,7 +11,8 @@ export class GeoChartComponent implements OnInit {
     
   constructor(
           private http: HttpService,
-          private app: AppComponent
+          private app: AppComponent,
+          private signIn: SignInService
   ) { }
   chartData = {};
   ready = false
@@ -18,7 +20,7 @@ export class GeoChartComponent implements OnInit {
   
   ngOnInit() {
       console.log('at geo comp');
-      let url = this.app.apiBase + '&app=get_benchmarks&process=get_geo&id=' + this.app.orgId + '&searchDate=*&wskey=' +this.app.credentials;
+      let url = this.app.apiBase + '&app=get_benchmarks&process=get_geo&id=' + this.app.orgId + '&searchDate=*&wskey=' +this.signIn.credentials;
       this.http.getJson(url).then(data => {
           console.log(data);
           this.chartData['chartType'] = 'GeoChart';
