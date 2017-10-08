@@ -1,0 +1,8 @@
+<div>
+  <div *ngIf="chart | async as chartData; else loading">
+    <google-chart [data]="chartData"></google-chart>
+  </div>
+  <ng-template #loading>
+    <md-spinner></md-spinner>
+  </ng-template>
+</div>

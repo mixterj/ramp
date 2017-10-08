@@ -11,10 +11,6 @@ export class AppComponent {
   orgId = null;
   runningGeo = true;
   runningHist = true;
-  authorized = false;
-  credentials = null;
-  signInError = false;
   apiBase = 'http://104.154.72.209:3075?service=run&';
-
 }
 

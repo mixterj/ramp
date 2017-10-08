@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, Input, Output} from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, Output } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 import { HttpService } from '../../services/http.service';
@@ -6,50 +6,52 @@ import { DataService } from '../../services/data.service';
 import { Title } from '@angular/platform-browser';
 import { AppComponent } from '../../app.component';
 import { HomeComponent } from '../home/home.component';
+import { ChartWrapperComponent } from "../chart-wrapper/chart-wrapper.component";
 import { DatePickerComponent } from '../date-picker/date-picker.component';
 import { ObservableMedia } from "@angular/flex-layout";
-import { GeoChartComponent } from '../geo-chart/geo-chart.component';
-import { HistogramComponent } from '../histogram/histogram.component';
-
+import { ChartService, ChartSpec } from '../../services/chart.service';
+import { SignInService } from '../../services/sign-in.service';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css'],
-  providers: [ GeoChartComponent, HistogramComponent ]
+  styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-
+    dailyCompChart: Observable<ChartSpec>;
+    dailyChart: Observable<ChartSpec>;
+    histChart: Observable<ChartSpec>;
+    geoChart: Observable<ChartSpec>;
     myDate: Date = new Date();
     dailyData = {};
-    dailyReady = false;
-    dailyFailed = false;
-    runningDaily = false;
     cols: number = 0;
     rowHeight: string = '';
     gutterSize: string = '';
-    
     constructor(
+            private chartService: ChartService,
             private dataService: DataService,
             private route: ActivatedRoute,
             private http: HttpService,
             private datepipe: DatePipe,
             private media: ObservableMedia,
-            private app: AppComponent
+            private app: AppComponent,
+            private signIn: SignInService
     ) { }
     
     organization = null;
 
     ngOnInit() {
-        console.log(this.app.authorized);
         this.updateGrid();
         this.app.orgId = this.route.snapshot.paramMap.get('id');
         this.app.runningGeo = true;
         console.log(this.app.orgId)
         this.organization = this.dataService.getOrganizationData(this.app.orgId)
         console.log(this.organization)
+        this.geoChart = this.chartService.geoChart('*', this.app.orgId);
+        this.histChart = this.chartService.histogram('*', this.app.orgId);
     }
-    
+
     updateDate(updatedDate) {
         this.myDate = updatedDate
     }
@@ -60,65 +62,15 @@ export class DashboardComponent implements OnInit {
       }
     
     getDailyVisualization() {
-        this.runningDaily = true;
-        this.dailyReady = false;
-        this.dailyFailed = false;
-        this.dailyData = {};
-        let url = this.app.apiBase + '&app=get_daily_results&process=visualize&id=' + this.app.orgId + '&searchDate=' +  this.datepipe.transform(this.myDate, 'yyyy-MM-dd') + '&wskey=' + this.app.credentials;
-        this.http.getJson(url).then(data => {
-            console.log(data);
-            this.dailyData['chartType'] = 'PieChart';
-            this.dailyData['options'] = {};
-            this.dailyData['options']['title'] = 'Clicks by Device';
-            this.dailyData['options']['height'] = 350;
-            if (Object.keys(data).length > 0){
-                this.dailyData['dataTable'] = data;
-                console.log(this.dailyData);
-            }
-            else{
-                this.dailyData['error'] = 'Error No Data for this Date';
-                this.dailyFailed = true;
-                console.log(this.dailyData);
-            }
-            
-        }).then(() =>{
-            this.dailyReady = true;
-            console.log(this.dailyReady)
-            this.runningDaily = false;
-        });      
+        this.dailyChart = this.chartService.dailyVisualization(this.myDate, this.app.orgId);
     }
 
     getDailyComp() {
-        this.runningDaily = true;
-        this.dailyReady = false;
-        this.dailyFailed = false;
-        this.dailyData = {};
-        let url = this.app.apiBase + '&app=get_daily_results&process=comparison&id=' + this.app.orgId + '&searchDate=' +  this.datepipe.transform(this.myDate, 'yyyy-MM-dd') + '&wskey=' + this.app.credentials;
-        this.http.getJson(url).then(data => {
-            console.log(data);
-            this.dailyData['chartType'] = 'ColumnChart';
-            this.dailyData['options'] = {};
-            this.dailyData['options']['title'] = 'Downloads per IR';
-            this.dailyData['options']['height'] = 350;
-            if (Object.keys(data).length > 0){
-                this.dailyData['dataTable'] = data;
-                console.log(this.dailyData);
-            }
-            else{
-                this.dailyData['error'] = 'Error No Data for this Date';
-                this.dailyFailed = true;
-                console.log(this.dailyData);
-            }
-            
-        }).then(() =>{
-            this.dailyReady = true;
-            console.log(this.dailyReady)
-            this.runningDaily = false;
-        });      
+        this.dailyCompChart = this.chartService.dailyComp(this.myDate, this.app.orgId);
     }
     
     downloadData() {
-      let url = this.app.apiBase + '&app=get_daily_results&process=download_daily_stats&id=' + this.app.orgId + '&searchDate=' + this.datepipe.transform(this.myDate, 'yyyy-MM-dd') +'&wskey=' +this.app.credentials
+      let url = this.app.apiBase + '&app=get_daily_results&process=download_daily_stats&id=' + this.app.orgId + '&searchDate=' + this.datepipe.transform(this.myDate, 'yyyy-MM-dd') +'&wskey=' +this.signIn.credentials
           window.open(url, "_blank");
     }
     
