@@ -1,0 +1,12 @@
+<div>
+  <div *ngIf="loading">
+    <md-spinner></md-spinner>
+  </div>
+  <div *ngIf="loaded">
+    <span>Chart loaded</span>
+    <google-chart [data]="chartData"></google-chart>
+  </div>
+  <div *ngIf="errored">
+    <span>Oops, there was an error</span>
+  </div>
+</div>

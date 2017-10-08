@@ -36,6 +36,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes, RouteReuseStrategy } from '@angular/router';
 import { CustomReuseStrategy } from './custom-reuse-strategy';
 import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { ObservableMedia, FlexLayoutModule} from "@angular/flex-layout";
 import { DatePipe } from '@angular/common';
 import { Ng2GoogleChartsModule } from 'ng2-google-charts';
@@ -45,6 +46,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpService } from './services/http.service';
 import { DataService } from './services/data.service';
 import { SignInService } from './services/sign-in.service';
+import { ChartService } from './services/chart.service';
 import { AuthGuardService } from './services/auth-guard.service';
 
 import { AppComponent } from './app.component';
@@ -53,8 +55,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { ErrorComponent } from './components/error/error.component';
 import { DatePickerComponent } from './components/date-picker/date-picker.component';
-import { GeoChartComponent } from './components/geo-chart/geo-chart.component';
-import { HistogramComponent } from './components/histogram/histogram.component';
+import { ChartWrapperComponent } from './components/chart-wrapper/chart-wrapper.component';
 
 const appRoutes: Routes = [
    { path: '', redirectTo: 'organization', pathMatch: 'full' },
@@ -72,8 +73,7 @@ const appRoutes: Routes = [
     SignInComponent,
     ErrorComponent,
     DatePickerComponent,
-    GeoChartComponent,
-    HistogramComponent
+    ChartWrapperComponent
   ],
   imports: [
     FormsModule,
@@ -113,10 +113,11 @@ const appRoutes: Routes = [
     MdNativeDateModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(appRoutes),
+    HttpClientModule,
     HttpModule,
     FlexLayoutModule
   ],
-  providers: [SignInService, HttpService, DataService, Title, {provide: RouteReuseStrategy, useClass: CustomReuseStrategy}, DatePipe],
+  providers: [SignInService, AppComponent, AuthGuardService, HttpService, ChartService, DataService, Title, {provide: RouteReuseStrategy, useClass: CustomReuseStrategy}, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

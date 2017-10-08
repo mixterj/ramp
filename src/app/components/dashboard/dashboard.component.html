@@ -11,15 +11,8 @@
 				<button md-button (click)="getDailyComp()"> <md-icon>show_chart</md-icon>  Comparison Chart</button>
 				<button md-button (click)="downloadData()"> <md-icon>file_download</md-icon>  Download Data</button>
 			</div>
-			<div *ngIf="!dataReady && runningDaily">
-				<md-spinner></md-spinner>
-			</div>
-			<div class='pad-below' *ngIf="dailyReady && !dailyFailed">
-				<google-chart [data]="dailyData"></google-chart>
-			</div>
-			<div *ngIf="dailyData.error">
-				<p>{{dailyData.error}}</p>
-			</div>
+			<app-chart-wrapper [chart]="dailyChart">
+			</app-chart-wrapper>
 		</div>
 		<div>
 			<h2>Cumulative Statistics</h2>
@@ -27,20 +20,12 @@
 			     fxLayout = "row"
 			     fxLayout.md="column">
 				<div class="geo" fxFlex="50">
-					<div *ngIf="app.runningGeo">
-						<md-spinner></md-spinner>
-					</div>
-					<div>
-						<app-geo-chart></app-geo-chart>
-					</div>
+					<app-chart-wrapper [chart]="geoChart">
+					</app-chart-wrapper>
 				</div>
 				<div class="hist" fxFlex="50">	
-					<div *ngIf="app.runningHist">
-						<md-spinner></md-spinner>
-					</div>
-					<div>
-						<app-histogram></app-histogram>
-					</div>
+					<app-chart-wrapper [chart]="histChart">
+					</app-chart-wrapper>
 			    </div>
 			</div>
 		</div>	

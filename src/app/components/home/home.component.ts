@@ -5,17 +5,17 @@ import { DataService } from '../../services/data.service';
 import { Title } from '@angular/platform-browser';
 import { AppComponent } from '../../app.component';
 import { ObservableMedia } from "@angular/flex-layout";
-import { GeoChartComponent } from '../geo-chart/geo-chart.component';
-import { HistogramComponent } from '../histogram/histogram.component';
 import { SignInService } from '../../services/sign-in.service';
+import { ChartService, ChartSpec } from '../../services/chart.service';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
-  providers: [ GeoChartComponent, HistogramComponent ]
+  styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+    geoChart: Observable<ChartSpec>;
 
   constructor(
           private route: ActivatedRoute,
@@ -25,7 +25,8 @@ export class HomeComponent implements OnInit {
           private titleService: Title,
           private media: ObservableMedia,
           private app: AppComponent,
-          private signIn: SignInService
+          private signIn: SignInService,
+          private chartService: ChartService
   ) { }
   
   organizations = null;
@@ -41,6 +42,7 @@ export class HomeComponent implements OnInit {
       console.log(this.organizations)
       console.log(this.signIn.signInError)
       this.app.orgId = '*'
+      this.geoChart = this.chartService.geoChart("*", this.app.orgId);
 
      
   }

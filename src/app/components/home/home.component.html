@@ -30,12 +30,8 @@
 			<h3>RAMP</h3>
 			<p>Montana State University, the Association of Research Libraries, the University of New Mexico, and OCLC Research have joined as partners to examine the difficulties that libraries face in producing accurate reports on the use of their digital repositories.</p>
 			<img src="assets/img/imls-measuring-up.jpeg">
-			<div *ngIf="app.runningGeo">
-				<md-spinner></md-spinner>
-			</div>
-			<div>
-				<app-geo-chart></app-geo-chart>
-			</div>
+			<app-chart-wrapper [chart]="geoChart">
+			</app-chart-wrapper>
 		</div>
 	</div>
 </div>
