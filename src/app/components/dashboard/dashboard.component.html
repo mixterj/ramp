@@ -11,8 +11,10 @@
 				<button md-button (click)="getDailyComp()"> <md-icon>show_chart</md-icon>  Comparison Chart</button>
 				<button md-button (click)="downloadData()"> <md-icon>file_download</md-icon>  Download Data</button>
 			</div>
-			<app-chart-wrapper [chart]="dailyChart">
-			</app-chart-wrapper>
+			<div *ngIf="dailyChart" class="pad-below">
+				<app-chart-wrapper [chart]="dailyChart">
+				</app-chart-wrapper>
+			</div>
 		</div>
 		<div>
 			<h2>Cumulative Statistics</h2>

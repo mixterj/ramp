@@ -1,12 +1,8 @@
 <div>
-  <div *ngIf="loading">
-    <md-spinner></md-spinner>
-  </div>
-  <div *ngIf="loaded">
-    <span>Chart loaded</span>
+  <div *ngIf="chart | async as chartData; else loading">
     <google-chart [data]="chartData"></google-chart>
   </div>
-  <div *ngIf="errored">
-    <span>Oops, there was an error</span>
-  </div>
+  <ng-template #loading>
+    <md-spinner></md-spinner>
+  </ng-template>
 </div>

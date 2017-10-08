@@ -25,9 +25,6 @@ export class DashboardComponent implements OnInit {
     geoChart: Observable<ChartSpec>;
     myDate: Date = new Date();
     dailyData = {};
-    dailyReady = false;
-    dailyFailed = false;
-    runningDaily = false;
     cols: number = 0;
     rowHeight: string = '';
     gutterSize: string = '';
