@@ -10,6 +10,7 @@ import { DatePickerComponent } from '../date-picker/date-picker.component';
 import { ObservableMedia } from "@angular/flex-layout";
 import { GeoChartComponent } from '../geo-chart/geo-chart.component';
 import { HistogramComponent } from '../histogram/histogram.component';
+import { Chart } from '../../models/chart';
 
 
 @Component({
